@@ -1,0 +1,77 @@
+<div *ngIf="status!=null">
+  <div class="d-flex justify-content-center my-3">
+    <div class="alert alert-danger" role="alert">
+      ERROR: {{status!.message}}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="status==null">
+  <div class="d-flex justify-content-end mb-3">
+    <h6>Showing {{oPage.numberOfElements}} of total {{oPage.totalElements}} threads.</h6>
+  </div>
+  <div class="flex justify-content-center mb-3">
+    <p-paginator (onPageChange)="onPageChang($event)" [first]="oPaginatorState.first!" [rows]="oPaginatorState.rows!"
+      [totalRecords]="oPage.totalElements" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+  </div>
+
+
+  <div class="mb-5 ">
+    <table class="table table-bordered table-striped table-hover table-sm">
+      <thead>
+        <tr>
+          <th (click)="doOrder('id')">ID</th>
+          <th (click)="doOrder('title')">Title</th>
+          <th (click)="doOrder('user')">User</th>
+          <th>Number of replies</th>
+          <th>Tools</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of oPage.content" class="align-middle">
+          <td class="text-end"><strong>{{t.id}}</strong></td>
+          <td>{{t.title}}</td>
+          <td>{{t.user.name}}</td>
+
+          <td class="text-center">
+            {{t.replies}}
+          </td>
+          <td class="text-center">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button class="btn btn-primary" [routerLink]="['/admin','thread','view',t.id]"><i
+                  class="pi pi-eye"></i></button>
+              <button class="btn btn-primary" (click)="doView(t)"><i class="pi pi-arrow-circle-up"></i></button>
+              <button class="btn btn-warning" [routerLink]="['/admin','thread','edit',t.id]"><i
+                  class="pi pi-pencil"></i></button>
+              <button *ngIf="t.replies==0" class="btn btn-danger" (click)="doRemove(t)"><i
+                  class="pi pi-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+  </div>
+</div>
+
+
+<p-confirmDialog #cd [style]="{ width: '30vw' }">
+  <ng-template pTemplate="header">
+    <h5><i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem"></i> Thread removal</h5>
+  </ng-template>
+  <ng-template pTemplate="message">
+    <div class="container d-flex align-items-center justify-content-center">
+      <app-admin-thread-detail-unrouted [id]="oThreadToRemove!.id"></app-admin-thread-detail-unrouted>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p>¿Are you sure to remove thread?</p>
+    <button class="btn btn-primary mx-1" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+    <button class="btn btn-danger mx-1" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+</p-confirmDialog>

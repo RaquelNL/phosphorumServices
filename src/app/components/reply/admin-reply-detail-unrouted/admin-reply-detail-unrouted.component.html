@@ -1,0 +1,38 @@
+<div *ngIf="status!=null">
+    <div class="d-flex justify-content-center my-3">
+        <div class="alert alert-danger" role="alert">
+            ERROR: {{status!.message}}
+        </div>
+    </div>
+</div>
+
+<div *ngIf="status==null">
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>{{oReply.id}}</td>
+            </tr>
+            <tr>
+                <td>title</td>
+                <td>{{oReply.title}}</td>
+            </tr>
+            <tr>
+                <td>body</td>
+                <td>{{oReply.body}}</td>
+            </tr>
+            <tr>
+                <td>user</td>
+                <td> <a [routerLink]="['/admin','user','view',oReply.user.id]">{{oReply.user.name}} {{oReply.user.surname}}</a></td>
+            </tr>
+            <tr>
+                <td>thread</td>
+                <td> <a [routerLink]="['/admin','thread','view',oReply.thread.id]">{{oReply.thread.title}}</a> </td>
+              </tr>
+        </tbody>
+    </table>
+</div>

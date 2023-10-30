@@ -1,0 +1,102 @@
+<div class="container m-5">
+
+  <div class="row align-items-start">
+    <div class="col">
+      
+      <h1>TO DO</h1>
+      <ul>
+        <li>Services</li>
+        <li>CRUD connection & filters</li>
+        <li>Filters</li>
+        <li>Events to parents</li>
+        <li>Contextual menu</li>
+      </ul>
+
+      <div class="alert alert-primary" role="alert">
+        A simple primary alert—check it out!
+      </div>
+
+
+
+      <h1>Hola mundo!!!</h1>
+
+      <h1>Comunicación del control a la plantilla</h1>
+
+      <p>SOY {{title}} (interpolación)</p>
+      <p>Calculo: {{3+4}}</p>
+      <p>Calculo: {{3+cuatro}}</p>
+
+      <h1>Ejemplo de Atributo</h1>
+      <img [src]="urlimagen" alt="imagen" [width]="w" height="200">
+
+      <p [class]="texto">Mi texto de ejemplo (variable)</p>
+      <p class="textorojo">Mi texto de ejemplo (estilo fijo)</p>
+      <p [class]="'texto'+'rojo'">Mi texto de ejemplo (expresión)</p>
+
+      <ul>
+        <li *ngFor="let v of personas">{{v}}</li>
+      </ul>
+
+    </div>
+    <div class="col">
+
+      <table>
+        <tr>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Sexo</th>
+        </tr>
+        <tr *ngFor="let v of poblacion">
+          <td>{{v.nombre}}</td>
+          <td>{{v.edad}}</td>
+          <td>{{v.sexo}}</td>
+        </tr>
+      </table>
+
+
+      <h1>Comunicación de la plantilla al controlador</h1>
+
+      <h2>Eventos</h2>
+      <button (click)="saludar()">Saludar</button>
+
+      <input type="text" (keyup)="escribir()">
+
+      <p>Lo siguiente no funciona si no importamos FormsModule en app.module</p>
+      Double data binding: De temp a control: <input type="text" [(ngModel)]="mitexto">
+      <h1>Del control a template: {{mitexto}}</h1>
+
+
+      <div *ngIf="condition">Se ve porque es verdad.</div>
+      <div *ngIf="!condition">No se ve porque es mentira.</div>
+
+      <ul>
+        <li *ngFor="let v of personas">
+          <span *ngIf="v=='Juan'">Es Juanito</span>
+          <span *ngIf="v!='Juan'">{{v}}</span>
+        </li>
+      </ul>
+
+
+      <h1>AJAX</h1>
+
+      USER ID: <input type="text" [(ngModel)]="id">
+      <button (click)="cargar()">Cargar</button>
+
+
+      <p>Name: {{datos.name}}</p>
+      <p>Surname: {{datos.surname}}</p>
+
+      <hr>
+
+
+      <app-admin-user-detail-unrouted [id]="id"></app-admin-user-detail-unrouted>
+
+      <hr>
+
+
+      <app-admin-user-detail-unrouted [id]="id"></app-admin-user-detail-unrouted>
+
+    </div>
+  </div>
+
+</div>

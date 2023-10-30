@@ -1,0 +1,65 @@
+<div *ngIf="status !== null">
+  <div class="d-flex justify-content-center my-3">
+    <div class="alert alert-danger" role="alert">
+      ERROR: {{ status!.message }}
+    </div>
+  </div>
+</div>
+
+<div *ngIf="status === null">
+  <div class="col-12">
+    <div class="d-flex justify-content-center my-3">
+      <form [formGroup]="replyForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Título:</mat-label>
+            <input matInput formControlName="title" placeholder="Título" required>
+            <mat-hint align="end">(3 to 255 characters long)</mat-hint>
+            <mat-error *ngIf="hasError('title', 'required')">El título es requerido</mat-error>
+            <mat-error *ngIf="hasError('title', 'minlength')">Se requiere más longitud</mat-error>
+            <mat-error *ngIf="hasError('title', 'maxlength')">Excede el límite</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Cuerpo:</mat-label>
+            <textarea matInput formControlName="body" placeholder="Cuerpo" required></textarea>
+            <mat-hint align="end">(Máximo 1000 caracteres)</mat-hint>
+            <mat-error *ngIf="hasError('body', 'required')">El cuerpo es requerido</mat-error>
+            <mat-error *ngIf="hasError('body', 'maxlength')">Excede el límite de caracteres</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div formGroupName="thread" *ngIf="oReply?.thread?.id">
+          <div class="form-group">
+            <mat-form-field [style.width.px]=100>
+              <mat-label>THREAD:</mat-label>
+              <input matInput formControlName="id" placeholder="THREAD" required>
+              <mat-error *ngIf="hasError('thread', 'required')">El ID del thread es requerido</mat-error>
+            </mat-form-field>
+            <button class="btn btn-primary" type="button" (click)="onShowThreadsSelection()"> <i class="pi pi-search"></i>
+              Find a thread</button>
+            {{oReply.thread.title}}
+          </div>
+        </div>
+        
+
+        <div formGroupName="user" *ngIf="oReply?.user?.name">
+          <div class="form-group">
+            <mat-form-field [style.width.px]=100>
+              <mat-label>USER:</mat-label>
+              <input matInput formControlName="id" placeholder="USER" required readonly>
+            </mat-form-field>
+            <button class="btn btn-primary" type="button" (click)="onShowUsersSelection()"> <i class="pi pi-search"></i>
+              Find a user</button>
+            {{oReply.user.name}} {{oReply.user.surname}}
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <button mat-raised-button color="primary" type="submit">Save Reply</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

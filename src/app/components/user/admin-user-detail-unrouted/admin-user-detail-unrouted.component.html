@@ -1,0 +1,49 @@
+<div *ngIf="status!=null">
+    <div class="d-flex justify-content-center my-3">
+        <div class="alert alert-danger" role="alert">
+            ERROR: {{status!.message}}
+        </div>
+    </div>
+</div>
+
+<div *ngIf="status==null">
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>{{oUser.id}}</td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>{{oUser.name}}</td>
+            </tr>
+            <tr>
+                <td>surname</td>
+                <td>{{oUser.surname}}</td>
+            </tr>
+            <tr>
+                <td>lastname</td>
+                <td>{{oUser.lastname}}</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>{{oUser.email}}</td>
+            </tr>
+            <tr>
+                <td>username</td>
+                <td>{{oUser.username}}</td>
+            </tr>
+            <tr>
+                <td>role</td>
+                <td>
+                    <span *ngIf="oUser.role==true">Admin</span>
+                    <span *ngIf="oUser.role==false">User</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
